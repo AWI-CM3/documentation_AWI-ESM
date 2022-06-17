@@ -11,7 +11,15 @@
 ```
 
 [`direnv`](https://www.direnv.net) allows you to specify particular actions your shell
-will perform when entering or exiting a particular directory.
+will perform when entering or exiting a particular directory. In the case of AWI-ESM
+and ESM-tools direnv functionality is used to enable a modeller to specify specific
+software environments for different model versions, simulations, or similar;
+direnv facilitates that settings, that are specifically necessary for one simulation or
+for one model version, but that should **not** be used for other simulations or model
+versions, are automatically activated when entering the folder where model or simulation
+resides. In principle, direnv simplifies the process of updating your environment
+variables, modules, or other similar settings whenever you switch between
+simulations or model versions in your shell.
 
 This tutorial will give you an overview of how to set up `direnv` on the
 various supercomputers that `AWI-ESM` currently is running on. As always, a
