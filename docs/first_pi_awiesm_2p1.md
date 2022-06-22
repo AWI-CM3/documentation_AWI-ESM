@@ -33,6 +33,11 @@ through the [`direnv` tutorial](./direnv.md).
 To begin, we are going to define a working directory for our project,
 `$PROJECT_BASE`, create the folder, and go there.
 
+``````{tab-set}
+`````{tab-item} DKRZ Levante
+```{note}
+These instructions are specific to DKRZ's Levante System!
+```
 ````{card}
 Terminal
 ^^^
@@ -42,6 +47,22 @@ $ mkdir -p $PROJECT_BASE
 $ cd $PROJECT_BASE
 ```
 ````
+`````
+`````{tab-item} AWI Ollie
+```{note}
+These instructions are specific to AWI's Ollie System!
+```
+````{card}
+Terminal
+^^^
+```
+$ export PROJECT_BASE=/work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI
+$ mkdir -p $PROJECT_BASE
+$ cd $PROJECT_BASE
+```
+````
+`````
+``````
 
 ```{hint}
 You should replace the `PROJECT_BASE` with your own location!
@@ -77,6 +98,29 @@ export PROJECT_BASE=/work/ab0246/a270077/SciComp/Model_Support/AWIESM/Tutorials/
 ```
 ````
 `````
+`````{tab-item} AWI Ollie
+```{note}
+These instructions are specific to AWI's Ollie System!
+```
+````{card}
+**New** File: `.envrc`
+^^^
+```shell
+# Load a modern version of Python for using the esm-tools on Levante
+module load python3
+# Ensure that the git version control software is available when entering
+# this folder
+module load git
+# Common climate tools: cdo
+module load cdo
+# Set up a project structure for Python where the esm-tools will be
+# installed:
+layout python
+# export the PROJECT_BASE variable for easy use to get back to the top of the
+# experiment folder
+export PROJECT_BASE=/work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI
+```
+````
 ``````
 
 Save and close this file, and if needed, run the `direnv allow` command if you
@@ -178,12 +222,27 @@ $ which -a esm_runscripts
 # /work/ab0246/a270077/SciComp/Model_Support/AWIESM/Tutorials/First_PI/.direnv/python-3.9.9/bin/esm_runscripts
 ```
 ````
+`````
+`````{tab-item} AWI Ollie
+````{card}
+Terminal
+^^^
+```shell
+$ which -a esm_tools
+# /work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/.direnv/python-3.7.7/bin/esm_tools
+$ which -a esm_master
+# /work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/.direnv/python-3.7.7/bin/esm_master
+$ which -a esm_runscripts
+# /work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/.direnv/python-3.7.7/bin/esm_runscripts
+```
+````
+`````
+``````
+
 ```{note}
 The output you have for `which -a` may be longer if you have installed the
 `esm-tools` in more than one location visible to your ${PATH}!
 ```
-`````
-``````
 
 ## Compiling the model
 
@@ -238,8 +297,8 @@ while (between 15 and 20 minutes).
 
 ## Submitting your first job
 
-At this point, you are ready to submit your first `AWI-ESM 2.1` simulation on
-Levante! We will do this in two steps:
+At this point, you are ready to submit your first `AWI-ESM 2.1` simulation! We
+will do this in two steps:
 
 ````{card}
 Terminal
