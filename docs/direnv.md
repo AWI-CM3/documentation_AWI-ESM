@@ -1,3 +1,4 @@
+(tutorials-direnv)=
 # Using `direnv`: Specifications for per-directory environments
 
 ```{article-info}
