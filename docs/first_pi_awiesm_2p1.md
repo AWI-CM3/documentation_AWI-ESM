@@ -12,9 +12,17 @@
 
 This guide takes you through the process of creating your first Pre-Industrial simulation with `AWI-ESM 2.1`
 
-```{note}
+```{hint}
 Some content will be in tabs. You should select which computer you want to work on.
 ```
+
+````{admonition} Notation
+In this documentation, you will sometimes see nested yaml entries in "dot" notation. Thiat means that `a.b: foo` would look like this in `yaml`:
+```yaml
+a:
+  b: foo
+```
+````
 
 ```{admonition} Upcoming Video
 :class: seealso
@@ -284,7 +292,7 @@ $ esm_master install-awiesm-2.1
 ````
 
 ```{warning}
-Unless you have configered for password-less access, you will be asked to enter
+Unless you have configured for password-less access, you will be asked to enter
 your password a few times! Please make sure to check which username and
 password is being asked for! For `awiesm-2.1` git *should* request the
 `gitlab.awi.de` credentials
@@ -301,7 +309,7 @@ pre-shipped with the `esm-tools`. In your
 find a folder labeled `runscripts`. There are basic examples for most models
 that are supported in the `esm-tools` framework. The example run script we will
 take comes from a subfolder `CI` (continuous integration), where the
-`esm-tools` team stores runscripts which are benchmarked and tested
+`esm-tools` team stores run configurations which are benchmarked and tested
 automatically.
 
 To start, generate a folder to store your run configuration files:
@@ -314,7 +322,7 @@ $ mkdir -p ${PROJECT_BASE}/run_configs
 ```
 ````
 
-Next, copy the template file to your `run_configs` folder. We will be doing some small modifications.
+Next, copy the template file to your `run_configs` folder.
 
 ``````{tab-set}
 `````{tab-item} DKRZ Levante
@@ -322,14 +330,16 @@ Next, copy the template file to your `run_configs` folder. We will be doing some
 Terminal
 ^^^
 ```shell
-$ cp ${PROJECT_BASE}/software/github.com/esm-tools/esm_tools/runscripts/CI/awiesm/levante/pi.yaml ${PROJECT_BASE}/run_configs/pi.yaml 
+$ cp ${PROJECT_BASE}/software/github.com/esm-tools/esm_tools/runscripts/CI/awiesm/levante/pi.yaml ${PROJECT_BASE}/run_configs/my_first_pi.yaml 
 ```
 ````
 Here we only need to change out two things for the runscript to work. 
 ````{card}
-File: `${PROJECT_BASE}/run_configs/pi.yaml`
+File: `${PROJECT_BASE}/run_configs/my_first_pi.yaml`
 ^^^
 ```diff
+ general:
+ ...
      compute_time: "00:20:00"
      initial_date: "1850-01-01T00:00:00"       # Initial exp. date
      final_date: "1850-04-01T00:00:00"         # Final date of the experiment
@@ -338,19 +348,50 @@ File: `${PROJECT_BASE}/run_configs/pi.yaml`
      base_dir: "${general.project_base}/experiments"
      nmonth: 1
      nyear: 0
-...
+ ...
      clean_old_rundirs_except: 2
      clean_old_rundirs_keep_every: 25
      version: "2.1"
 +    account: "ab0246"
-     # Why is this twice??
      model_dir: "${general.project_base}/model_codes/awiesm-2.1"
-...
+ ...
+
+ jsbach:
++   dynamic_vegeations: True
+
+ fesom:
+     restart_rate: 1
+     restart_unit: "m"
+     restart_first: 1
+     namelist_dir: "${general.project_base}/model_codes/awiesm-2.1/fesom-2.1/config"
++    mesh_dir: "/work/ab0246/pool/FESOM2/MESHES/mesh_CORE2_finaltopo_mean/"
 ```
 ````
 ```{note}
 The above difference is truncated!
 ```
+
+The first difference, in `general.project_base`, tells the `esm-tools` where it
+will store experiments. Here we use the special `!ENV` tag to extract a shell
+environmental variable, in this case `${PROJECT_BASE}`. In our case, the
+`${PROJECT_BASE}` variable is set up for us with `direnv`, as shown above in
+the Preliminaries section.
+
+The second difference is unique to Levante, and sets up the job's `slurm`
+accounting, which informs the batch system where to deduct node-hours from
+while running your simulation. You will need to add an entry for
+`general.account: ab0246`. You can substitute the computing account for
+another Levante resource allocation if you want. That translates to the
+following in the submitted run script which `slurm` gets:
+```
+#SBATCH --account=ab0246
+```
+Next, we explicitly turn on dynamic vegetation. Note that the key is indeed
+plural: `jsbach.dynamic_vegetations`. This is still a legacy spelling and will
+be renamed more sensibly in the future.
+
+Finally, as the pool on Levante is not yet standardized, we define the group
+directory for AWI Paleoclimate Dynamics as the mesh pool.
 `````
 
 
@@ -360,9 +401,11 @@ The above difference is truncated!
 Terminal
 ^^^
 ```shell
-$ cp ${PROJECT_BASE}/software/github.com/esm-tools/esm_tools/runscripts/CI/awiesm/ollie/pi.yaml ${PROJECT_BASE}/run_configs/pi.yaml 
+$ cp ${PROJECT_BASE}/software/github.com/esm-tools/esm_tools/runscripts/CI/awiesm/ollie/pi.yaml ${PROJECT_BASE}/run_configs/my_first_pi.yaml 
 ```
 ````
+There are no changes needed to the template runscript for Ollie; all user
+specific settings are already present in the environment thanks to `direnv`.
 `````
 ``````
 
@@ -389,4 +432,82 @@ experiment ID followed by a string for the name of your experiment, and finally
 `-c` to launch in "check" mode.
 ````
 
+If the check mode works correctly, you should see:
 
+``````{tab-set}
+`````{tab-item} DKRZ Levante
+````{card}
+Terminal
+^^^
+```
+First year, checking if we need to compile...
+
+================================================================================
+STARTING SIMULATION JOB!
+Experiment ID = tutorial_pi_001
+Setup = awiesm
+This setup consists of:
+- echam
+- fesom
+- oasis3mct
+- jsbach
+- hdmodel
+Experiment is installed in:
+       /work/ab0246/a270077/SciComp/Model_Support/AWIESM/Tutorials/First_PI/experiments/tutorial_pi_001
+================================================================================
+
+- NOTE: removing the variable: OpbndPath from the namelist: namelist.config
+- NOTE: removing the variable: TideForcingPath from the namelist: namelist.config
+- NOTE: removing the variable: ForcingDataPath from the namelist: namelist.config
+- NOTE: removing the variable: K_gm from the namelist: namelist.oce
+- NOTE: removing the variable: gethd from the namelist: namelist.jsbach
+- NOTE: removing the variable: puthd from the namelist: namelist.jsbach
+tasks: 256
+nproc: 288
+tasks: 544
+resubmit tasks: 544
+Actually not submitting anything, this job preparation was launched in 'check' mode (-c).
+```
+````
+`````
+`````{tab-item} AWI Ollie
+````{card}
+Terminal
+^^^
+```
+Copying standard yamls from:  /work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/software/github.com/esm-tools/esm_tools/configs/
+Copying standard namelists from:  /work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/software/github.com/esm-tools/esm_tools/namelists/
+/work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/run_configs/my_first_pi.yaml
+First year, checking if we need to compile...
+
+================================================================================
+STARTING SIMULATION JOB!
+Experiment ID = tutorial_pi_001
+Setup = awiesm
+This setup consists of:
+- echam
+- fesom
+- oasis3mct
+- jsbach
+- hdmodel
+Experiment is installed in:
+       /work/ollie/pgierz/SciComp/Model_Support/AWIESM/Tutorials/First_PI/experiments/tutorial_pi_001
+================================================================================
+
+- NOTE: removing the variable: OpbndPath from the namelist: namelist.config
+- NOTE: removing the variable: TideForcingPath from the namelist: namelist.config
+- NOTE: removing the variable: ForcingDataPath from the namelist: namelist.config
+- NOTE: removing the variable: K_gm from the namelist: namelist.oce
+- NOTE: removing the variable: gethd from the namelist: namelist.jsbach
+- NOTE: removing the variable: puthd from the namelist: namelist.jsbach
+tasks: 576
+nproc: 288
+tasks: 864
+resubmit tasks: 864
+Actually not submitting anything, this job preparation was launched in 'check' mode (-c).
+```
+````
+`````
+``````
+
+Finally, you can remove the `-c` flag and submit your simulation.
