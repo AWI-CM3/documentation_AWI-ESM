@@ -186,7 +186,7 @@ Once these steps are finished, you can install the `esm-tools`.
 
 First, we need to download the `esm-tools` package. While you can do this
 anywhere inside of the `${PROJECT_BASE}` folder, it is nice to know where
-things come from. One way to do this, is to mirror the web address of the
+things come from. One way to do this is to mirror the web address of the
 download command as closely as possible.
 
 ````{card}
@@ -295,10 +295,86 @@ while (between 15 and 20 minutes).
 
 ## Customizing a Run Configuration
 
+There are several run configurations available for you to use which are already
+pre-shipped with the `esm-tools`. In your
+`${PROJECT_BASE}/software/github.com/esm-tools/esm_tools` directory you will
+find a folder labeled `runscripts`. There are basic examples for most models
+that are supported in the `esm-tools` framework. The example run script we will
+take comes from a subfolder `CI` (continuous integration), where the
+`esm-tools` team stores runscripts which are benchmarked and tested
+automatically.
+
+To start, generate a folder to store your run configuration files:
+
+````{card}
+Terminal
+^^^
+```
+$ mkdir -p ${PROJECT_BASE}/run_configs
+```
+````
+
+Next, copy the template file to your `run_configs` folder. We will be doing some small modifications.
+
+``````{tab-set}
+`````{tab-item} DKRZ Levante
+````{card}
+Terminal
+^^^
+```shell
+$ cp ${PROJECT_BASE}/software/github.com/esm-tools/esm_tools/runscripts/CI/awiesm/levante/pi.yaml ${PROJECT_BASE}/run_configs/pi.yaml 
+```
+````
+Here we only need to change out two things for the runscript to work. 
+````{card}
+File: `${PROJECT_BASE}/run_configs/pi.yaml`
+^^^
+```diff
+     compute_time: "00:20:00"
+     initial_date: "1850-01-01T00:00:00"       # Initial exp. date
+     final_date: "1850-04-01T00:00:00"         # Final date of the experiment
+-    project_base: "/work/ab0246/a270077/SciComp/Model_Support/awiesm_porting/"
++    project_base: !ENV ${PROJECT_BASE}
+     base_dir: "${general.project_base}/experiments"
+     nmonth: 1
+     nyear: 0
+...
+     clean_old_rundirs_except: 2
+     clean_old_rundirs_keep_every: 25
+     version: "2.1"
++    account: "ab0246"
+     # Why is this twice??
+     model_dir: "${general.project_base}/model_codes/awiesm-2.1"
+...
+```
+````
+```{note}
+The above difference is truncated!
+```
+`````
+
+
+
+`````{tab-item} AWI Ollie
+````{card}
+Terminal
+^^^
+```shell
+$ cp ${PROJECT_BASE}/software/github.com/esm-tools/esm_tools/runscripts/CI/awiesm/ollie/pi.yaml ${PROJECT_BASE}/run_configs/pi.yaml 
+```
+````
+`````
+``````
+
+
+
 ## Submitting your first job
 
 At this point, you are ready to submit your first `AWI-ESM 2.1` simulation! We
-will do this in two steps:
+will do this in two steps. First, we will ensure that the "check mode" runs
+through correctly. This ascertains that all files needed for the simulation exist,
+and will generate a preliminary folder structure for you to examine before
+submitting the actual run to the supercomputer:
 
 ````{card}
 Terminal
