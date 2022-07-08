@@ -511,3 +511,16 @@ Actually not submitting anything, this job preparation was launched in 'check' m
 ``````
 
 Finally, you can remove the `-c` flag and submit your simulation.
+
+```{raw} html
+<script
+   type="text/javascript"
+   src="https://utteranc.es/client.js"
+   async="async"
+   repo="awi-cm3/documentation_AWI-ESM"
+   issue-term="pathname"
+   label="💬 comment"
+   crossorigin="anonymous"
+/>
+```
+

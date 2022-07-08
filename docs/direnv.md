@@ -364,7 +364,7 @@ create isolated folders. On this page, you learned the following:
    type="text/javascript"
    src="https://utteranc.es/client.js"
    async="async"
-   repo="awi-esm/docs"
+   repo="awi-cm3/documentation_AWI-ESM"
    issue-term="pathname"
    label="💬 comment"
    crossorigin="anonymous"
