@@ -18,7 +18,7 @@ parts:
   - caption: Runtime Tutorials 
     chapters:
       - file: first_pi_awiesm_2p1 
-  #       - file: changing_ghg_and_orbit
+      - file: orbital_forcing
   #       - file: changing_ice_sheets_and_landsea_mask
   - caption: Analysis Tutorials
     chapters:
