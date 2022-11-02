@@ -20,9 +20,10 @@ parts:
       - file: first_pi_awiesm_2p1 
       - file: orbital_forcing
   #       - file: changing_ice_sheets_and_landsea_mask
-  - caption: Analysis Tutorials
+  - caption: Vizualization Tutorials
     chapters:
     - file: analysis_tutorials_overview 
+    - file: notebooks/fesom/fesom_amoc
   - caption: Technical Documentation
     chapters: 
     - file: technical_links_awiesm_2.1

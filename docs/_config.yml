@@ -8,9 +8,13 @@ logo: logo.png
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  execute_notebooks: auto
+  exclude_patterns:
+    - notebooks_off/*
   timeout: -1
 
+launch_buttons:
+  jupyterhub_url: "https://jupyterhub.awi.de"
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
@@ -31,9 +35,9 @@ sphinx:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/awi-esm/docs # Online location of your book
+  url: https://github.com/AWI-CM3/documentation_AWI-ESM # Online location of your book
   path_to_book: docs  # Optional path to your book, relative to the repository root
-  branch: main  # Which branch of the repository should be used when creating links (optional)
+  branch: interact  # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
