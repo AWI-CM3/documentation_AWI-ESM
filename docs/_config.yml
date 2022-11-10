@@ -14,7 +14,7 @@ execute:
   timeout: -1
 
 launch_buttons:
-  jupyterhub_url: "https://jupyterhub.awi.de"
+  jupyterhub_url: "https://jupyterhub-hpc.awi.de"
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
