@@ -8,13 +8,14 @@ logo: logo.png
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: auto
+  execute_notebooks: false
   exclude_patterns:
     - notebooks_off/*
   timeout: -1
 
 launch_buttons:
   # jupyterhub_url: "https://jupyterhub-hpc.awi.de"
+  binderhub_url: false
   jupyterhub_url: "http://paleosrv3.dmawi.de/jupyterhub-hpc"
 # Define the name of the latex output file for PDF builds
 latex:
