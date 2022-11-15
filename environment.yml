@@ -8,5 +8,5 @@ dependencies:
   - matplotlib
   - pip:
     - sphinxcontrib-youtube
-    - pydata_sphinx_theme
+    - bash_kernel
 prefix: /Users/pgierz/opt/miniconda3/envs/awiesm_docs
