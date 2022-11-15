@@ -32,7 +32,6 @@ parts:
       - file: ./notebooks/fesom/fesom_runoff_climmean
       - file: ./notebooks/fesom/fesom_precip_climmean
       - file: ./notebooks/fesom/fesom_evap_climmean
-      - file: ./notebooks/fesom/fesom_runoff_climmean
       - file: ./notebooks/fesom/fesom_amoc
   - caption: Technical Documentation
     chapters: 
