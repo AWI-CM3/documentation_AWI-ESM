@@ -14,7 +14,8 @@ execute:
   timeout: -1
 
 launch_buttons:
-  jupyterhub_url: "https://jupyterhub-hpc.awi.de"
+  # jupyterhub_url: "https://jupyterhub-hpc.awi.de"
+  jupyterhub_url: "http://paleosrv3.dmawi.de/jupyterhub-hpc"
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
