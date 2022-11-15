@@ -15,7 +15,7 @@ execute:
 
 launch_buttons:
   # jupyterhub_url: "https://jupyterhub-hpc.awi.de"
-  binderhub_url: false
+  binderhub_url: ""
   jupyterhub_url: "http://paleosrv3.dmawi.de/jupyterhub-hpc"
 # Define the name of the latex output file for PDF builds
 latex:
