@@ -24,7 +24,16 @@ parts:
     chapters:
     - file: analysis_tutorials_overview 
       sections:
-      - file: notebooks/fesom/fesom_amoc
+      - file: ./notebooks/fesom/fesom_mesh_comparison
+      - file: ./notebooks/fesom/fesom_sst_climmean
+      - file: ./notebooks/fesom/fesom_sss_climmean
+      - file: ./notebooks/fesom/fesom_ssh_climmean
+      - file: ./notebooks/fesom/fesom_sea_ice_area_climmean
+      - file: ./notebooks/fesom/fesom_runoff_climmean
+      - file: ./notebooks/fesom/fesom_precip_climmean
+      - file: ./notebooks/fesom/fesom_evap_climmean
+      - file: ./notebooks/fesom/fesom_runoff_climmean
+      - file: ./notebooks/fesom/fesom_amoc
   - caption: Technical Documentation
     chapters: 
     - file: technical_links_awiesm_2.1
