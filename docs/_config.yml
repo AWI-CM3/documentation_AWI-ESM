@@ -15,8 +15,10 @@ execute:
 
 launch_buttons:
   # jupyterhub_url: "https://jupyterhub-hpc.awi.de"
-  binderhub_url: ""
+  binderhub_url: "https://mybinder.org"
   jupyterhub_url: "http://paleosrv3.dmawi.de/jupyterhub-hpc"
+  notebook_interface: "jupyterlab"  # or "classic"
+  
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
@@ -37,16 +39,22 @@ sphinx:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/AWI-CM3/documentation_AWI-ESM # Online location of your book
+  url: https://github.com/AWI-ESM/documentation_AWI-ESM # Online location of your book
   path_to_book: docs  # Optional path to your book, relative to the repository root
   branch: master  # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
-html:
+html::
   use_issues_button: true
   use_repository_button: true
   use_edit_page_button: true
   comments:
     utterances:
-      repo: "awi-cm3/documentation_AWI-ESM"
+      repo: "awi-esm/documentation_AWI-ESM"
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - deflist

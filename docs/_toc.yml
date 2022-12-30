@@ -20,6 +20,11 @@ parts:
       - file: first_pi_awiesm_2p1 
       - file: orbital_forcing
   #       - file: changing_ice_sheets_and_landsea_mask
+  - caption: Common Runtime Errors
+    chapters:
+      - file: common_runtime_issues/common_issues
+        sections:
+          - file: common_runtime_issues/awiesm-2.1/initialization_errors
   - caption: Vizualization Tutorials
     chapters:
     - file: analysis_tutorials_overview 
